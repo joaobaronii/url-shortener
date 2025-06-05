@@ -14,9 +14,9 @@ import (
 )
 
 var (
-	urlStore    = make(map[string]string)
-	mu          sync.Mutex
-	secretKey   = "secretaeskey12345678901234567890"
+	urlStore = make(map[string]string)
+	mu sync.Mutex
+	secretKey = "secretaeskey12345678901234567890"
 	lettersRune = []rune(
 		"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
 )
@@ -56,6 +56,7 @@ func generateShortId() string {
 	return string(b)
 }
 
+
 func shortenUrl(w http.ResponseWriter, r *http.Request) {
 	originalUrl := r.URL.Query().Get("url")
 	if originalUrl == "" {
@@ -70,7 +71,7 @@ func shortenUrl(w http.ResponseWriter, r *http.Request) {
 
 	encryptedUrl := encrypt(originalUrl)
 	shortId := generateShortId()
-
+	
 	mu.Lock()
 	urlStore[shortId] = encryptedUrl
 	mu.Unlock()
@@ -101,7 +102,7 @@ func decrypt(encryptedUrl string) string {
 
 func redirectUrl(w http.ResponseWriter, r *http.Request) {
 	shortId := r.URL.Path[1:]
-
+	 
 	mu.Lock()
 	encryptedUrl, ok := urlStore[shortId]
 	mu.Unlock()
@@ -121,5 +122,5 @@ func main() {
 	fmt.Println("Server is running on http://localhost:8080/shorten")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
-	}
+	} 
 }
