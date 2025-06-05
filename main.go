@@ -56,7 +56,7 @@ func generateShortId() string {
 	return string(b)
 }
 
-func ShortenUrl(w http.ResponseWriter, r *http.Request) {
+func shortenUrl(w http.ResponseWriter, r *http.Request) {
 	originalUrl := r.URL.Query().Get("url")
 	if originalUrl == "" {
 		http.Error(w, "URL is required", http.StatusBadRequest)
@@ -99,7 +99,7 @@ func decrypt(encryptedUrl string) string {
 	return string(cipherText)
 }
 
-func RedirectUrl(w http.ResponseWriter, r *http.Request) {
+func redirectUrl(w http.ResponseWriter, r *http.Request) {
 	shortId := r.URL.Path[1:]
 
 	mu.Lock()
@@ -115,8 +115,8 @@ func RedirectUrl(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/shorten", ShortenUrl)
-	http.HandleFunc("/", RedirectUrl)
+	http.HandleFunc("/shorten", shortenUrl)
+	http.HandleFunc("/", redirectUrl)
 
 	fmt.Println("Server is running on http://localhost:8080/shorten")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
