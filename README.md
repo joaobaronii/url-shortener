@@ -1,6 +1,6 @@
 # Serviço de Encurtamento de URLs
 
-Este é um serviço simples de encurtamento de URLs escrito em Go. Ele permite que os usuários encurtem URLs longas e sejam redirecionados para as URLs originais usando os links encurtados. O serviço utiliza criptografia AES para armazenar URLs de forma segura e gera IDs curtos aleatórios para cada URL.
+Este é um serviço simples de encurtamento de URLs escrito em Go. Ele permite que os usuários encurtem URLs longas e sejam redirecionados para as URLs originais usando os links encurtados.
 
 ## Funcionalidades
 - Encurta URLs fornecidas via requisições HTTP GET.
